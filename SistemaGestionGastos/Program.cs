@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using SistemaGestionGastos.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//builder.Services.AddDbContext<SistemaGestionGastosContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conexion")));
+
+builder.Services.AddDbContext<SistemaGestionGastosContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("conexion") ?? throw new InvalidOperationException("Connection string 'Sistemas Gestion de Gastos' not found.")));
 
 var app = builder.Build();
 
